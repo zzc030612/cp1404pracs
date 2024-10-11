@@ -7,13 +7,16 @@ FILENAME = "subject_data.txt"
 
 
 def main():
+    """Print subject data from file."""
     data = load_data()
     print_data(data)
 
 
 def print_data(data):
+    """Print subject data from file."""
     for i in range(len(data)):
         print(f"{data[i][0]} is taught by {data[i][1]:<12} and has {data[i][2]:>3} students")
+
 
 def load_data():
     """Read data from file formatted like: subject,lecturer,number of students."""
