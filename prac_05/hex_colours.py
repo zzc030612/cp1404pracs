@@ -12,13 +12,10 @@ print("Available colours:")
 for code, name in CODE_TO_NAME.items():
     print(f"{code:{max_code_length}}")
 
-state_code = input("Enter colour name: ").title()
-while state_code != "":
+colour_code = input("Enter colour name: ").title()
+while colour_code != "":
     try:
-        if state_code in CODE_TO_NAME:
-            print(state_code, "is", CODE_TO_NAME[state_code])
-        else:
-            raise ValueError
-    except ValueError:
-        print(f"Invalid colour name: {state_code}")
-    state_code = input("Enter colour name: ").title()
+        print(colour_code, "is", CODE_TO_NAME[colour_code])
+    except KeyError:
+        print(f"Invalid colour name: {colour_code}")
+    colour_code = input("Enter colour name: ").title()
