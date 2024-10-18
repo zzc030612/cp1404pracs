@@ -2,8 +2,6 @@
 CP1404/CP5632 Practical
 State names in a dictionary
 File needs reformatting
-
-(delete) - good commit name - Complete prac 5 state names exercise
 """
 
 CODE_TO_NAME = {"QLD": "Queensland", "NSW": "New South Wales", "NT": "Northern Territory", "WA": "Western Australia",
