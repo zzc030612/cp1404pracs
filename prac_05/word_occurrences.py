@@ -1,10 +1,10 @@
 # this is a collection of words of nice words this is a fun thing it is
 
-string = input("Text: ")
-strings = string.split(" ")
+text = input("Text: ")
+words = text.split(" ")
 
-max_string_length = max(len(string) for string in strings)
-max_occurrence_length = max(len(str(strings.count(string))) for string in strings)
+max_string_length = max(len(word) for word in words)
+max_occurrence_length = max(len(str(words.count(word))) for word in words)
 
-for string in sorted(set(strings)):
-    print(f"{string:{max_string_length}} : {strings.count(string):{max_occurrence_length}}")
+for word in sorted(set(words)):
+    print(f"{word:{max_string_length}} : {words.count(word):{max_occurrence_length}}")
