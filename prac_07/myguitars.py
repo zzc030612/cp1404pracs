@@ -10,4 +10,8 @@ def main():
             guitar = Guitar(parts[0], parts[1], parts[2])
             guitars.append(guitar)
 
+    for guitar in sorted(guitars):
+        print(guitar)
+
+
 main()
