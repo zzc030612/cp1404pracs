@@ -53,14 +53,22 @@ def main():
             project_index = int(input("Project choice: "))
             project = projects[project_index]
             print(project)
-            completion_percentage = int(input("New Percentage: "))
-            priority = int(input("Priority: "))
+            completion_percentage = input("New Percentage: ")
+            completion_percentage = get_default_if_string_empty(completion_percentage, project.completion_percentage)
+            priority = input("New Priority: ")
+            priority = get_default_if_string_empty(priority, project.priority)
             projects[project_index] = ProjectManagement(project.name, project.start_date, priority, project.cost_estimate, completion_percentage)
         else:
             print("Error invalid input")
 
         print(MENU)
         choice = input(">>> ").upper()
+
+
+def get_default_if_string_empty(string, default):
+    if not string:
+        string = default
+    return string
 
 
 def display_projects_after_date(date, projects):
