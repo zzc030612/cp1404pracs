@@ -8,6 +8,7 @@ This time is also counting the time it taken to complete the other project file
 import datetime
 from operator import attrgetter
 
+from docutils.parsers.rst.directives import percentage
 from pylint.pyreverse.inspector import Project
 
 from prac_07.project_management import ProjectManagement
@@ -47,7 +48,14 @@ def main():
             completion_percentage = input("Percent complete: ")
             projects.append(ProjectManagement(name, start_date, priority, cost_estimate, completion_percentage))
         elif choice == "U":
-            pass
+            for i, project in enumerate(sorted(projects)):
+                print(i, project)
+            project_index = int(input("Project choice: "))
+            project = projects[project_index]
+            print(project)
+            completion_percentage = int(input("New Percentage: "))
+            priority = int(input("Priority: "))
+            projects[project_index] = ProjectManagement(project.name, project.start_date, priority, project.cost_estimate, completion_percentage)
         else:
             print("Error invalid input")
 
