@@ -5,6 +5,7 @@ Actual:   ?? minutes
 
 This time is also counting the time it taken to complete the other project file
 """
+import datetime
 from operator import itemgetter, attrgetter
 
 from prac_07.project_management import ProjectManagement
@@ -32,7 +33,9 @@ def main():
         elif choice == "D":
             display_projects(projects)
         elif choice == "F":
-            pass
+            date_string = input("Show projects that start after date (dd/mm/yy): ")
+            date = datetime.datetime.strptime(date_string, "%d/%m/%Y").date()
+            display_projects_after_date(date, projects)
         elif choice == "A":
             pass
         elif choice == "U":
@@ -42,6 +45,12 @@ def main():
 
         print(MENU)
         choice = input(">>> ").upper()
+
+
+def display_projects_after_date(date, projects):
+    for project in sorted(projects, key=attrgetter("converted_date")):
+        if project.converted_date >= date:
+            print(project)
 
 
 def process_file(filename):
@@ -65,12 +74,12 @@ def save_to_file(projects, filename):
 
 def display_projects(projects):
     print("Incomplete projects:")
-    for project in projects:
+    for project in sorted(projects):
         if not project.is_complete():
             print(f"  {project}")
 
     print("Complete projects:")
-    for project in projects:
+    for project in sorted(projects):
         if project.is_complete():
             print(f"  {project}")
 
