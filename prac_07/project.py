@@ -1,12 +1,14 @@
 """
 Word Occurrences
 Estimate: 120 minutes
-Actual:   ?? minutes
+Actual:   ?? minutes 90 + ??
 
 This time is also counting the time it taken to complete the other project file
 """
 import datetime
-from operator import itemgetter, attrgetter
+from operator import attrgetter
+
+from pylint.pyreverse.inspector import Project
 
 from prac_07.project_management import ProjectManagement
 
@@ -37,7 +39,13 @@ def main():
             date = datetime.datetime.strptime(date_string, "%d/%m/%Y").date()
             display_projects_after_date(date, projects)
         elif choice == "A":
-            pass
+            print("Let's add a new project")
+            name = input("Name: ")
+            start_date = input("Start date (dd/mm/yy): ")
+            priority = input("Priority: ")
+            cost_estimate = input("Cost estimate: ")
+            completion_percentage = input("Percent complete: ")
+            projects.append(ProjectManagement(name, start_date, priority, cost_estimate, completion_percentage))
         elif choice == "U":
             pass
         else:
@@ -82,7 +90,6 @@ def display_projects(projects):
     for project in sorted(projects):
         if project.is_complete():
             print(f"  {project}")
-
 
 
 main()
