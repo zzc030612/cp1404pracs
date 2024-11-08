@@ -5,6 +5,8 @@ Actual:   ?? minutes
 
 This time is also counting the time it taken to complete the other project file
 """
+from operator import itemgetter, attrgetter
+
 from prac_07.project_management import ProjectManagement
 
 MENU = """- (L)oad projects
@@ -17,8 +19,7 @@ MENU = """- (L)oad projects
 
 
 def main():
-    filename = "project.py"
-    process_file(filename)
+    filename = "projects.txt"
     projects = process_file(filename)
     print(MENU)
     choice = input(">>> ").upper()
@@ -29,7 +30,7 @@ def main():
         elif choice == "S":
             save_to_file(projects, filename)
         elif choice == "D":
-            pass
+            display_projects(projects)
         elif choice == "F":
             pass
         elif choice == "A":
@@ -48,7 +49,7 @@ def process_file(filename):
     with open(filename, "r") as in_file:
         in_file.readline()
         for line in in_file:
-            part = line.split(" ")
+            part = line.strip().split("\t")
             project = ProjectManagement(part[0], part[1], part[2], part[3], part[4])
             projects.append(project)
     print(f"Loaded {len(projects)} projects from {filename}")
@@ -60,6 +61,19 @@ def save_to_file(projects, filename):
         for project in projects:
             print(f"{project.name}  {project.start_date}    {project.priority}    {project.cost_estimate}   "
                   f"{project.completion_percentage}", file=out_file)
+
+
+def display_projects(projects):
+    print("Incomplete projects:")
+    for project in projects:
+        if not project.is_complete():
+            print(f"  {project}")
+
+    print("Complete projects:")
+    for project in projects:
+        if project.is_complete():
+            print(f"  {project}")
+
 
 
 main()
