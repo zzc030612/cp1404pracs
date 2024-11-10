@@ -6,7 +6,7 @@ journey of learning code, with each week containing recently learnt coding techn
 
 - Follow patterns
 - Be consistent - naming conventions
-- Don't create an instance and destroy it
+- Don't create an instance and destroy it - be efficient
 - Don't unnecessary complicate the code
 
 # Links to resources
