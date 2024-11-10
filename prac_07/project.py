@@ -131,8 +131,9 @@ def process_file(filename):
 
 def save_to_file(projects, filename):
     with open(filename, "w") as out_file:
+        print("Name\tStart Date\tPriority\tCost Estimate\tCompletion Percentage", file=out_file)
         for project in projects:
-            print(f"{project.name}  {project.start_date}    {project.priority}    {project.cost_estimate}   "
+            print(f"{project.name}\t{project.start_date}\t{project.priority}\t{project.cost_estimate}\t"
                   f"{project.completion_percentage}", file=out_file)
 
 
