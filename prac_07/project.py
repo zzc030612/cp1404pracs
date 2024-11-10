@@ -8,9 +8,6 @@ This time is also counting the time it taken to complete the other project file
 import datetime
 from operator import attrgetter
 
-from docutils.parsers.rst.directives import percentage
-from pylint.pyreverse.inspector import Project
-
 from prac_07.project_management import ProjectManagement
 
 MENU = """- (L)oad projects
@@ -36,33 +33,76 @@ def main():
         elif choice == "D":
             display_projects(projects)
         elif choice == "F":
-            date_string = input("Show projects that start after date (dd/mm/yy): ")
+            date_string = get_valid_date("Show projects that start after date (dd/mm/yy): ")
             date = datetime.datetime.strptime(date_string, "%d/%m/%Y").date()
             display_projects_after_date(date, projects)
         elif choice == "A":
             print("Let's add a new project")
-            name = input("Name: ")
-            start_date = input("Start date (dd/mm/yy): ")
-            priority = input("Priority: ")
-            cost_estimate = input("Cost estimate: ")
-            completion_percentage = input("Percent complete: ")
+            name = get_valid_variable_type("Name: ", str)
+            start_date = get_valid_date("Start date (dd/mm/yy): ")
+            priority = get_valid_variable_type("Priority: ", int)
+            cost_estimate = get_valid_variable_type("Cost estimate: ", float)
+            completion_percentage = get_valid_percentage("Percent complete: ")
             projects.append(ProjectManagement(name, start_date, priority, cost_estimate, completion_percentage))
         elif choice == "U":
             for i, project in enumerate(sorted(projects)):
                 print(i, project)
-            project_index = int(input("Project choice: "))
+            project_index = get_valid_variable_type("Project choice: ", int)
             project = projects[project_index]
             print(project)
-            completion_percentage = input("New Percentage: ")
+            completion_percentage = get_valid_percentage("New Percentage: ")
             completion_percentage = get_default_if_string_empty(completion_percentage, project.completion_percentage)
-            priority = input("New Priority: ")
+            priority = get_valid_variable_type("New Priority: ", int)
             priority = get_default_if_string_empty(priority, project.priority)
             projects[project_index] = ProjectManagement(project.name, project.start_date, priority, project.cost_estimate, completion_percentage)
         else:
             print("Error invalid input")
-
         print(MENU)
         choice = input(">>> ").upper()
+
+
+def get_valid_percentage(question):
+    is_valid_input = False
+    while not is_valid_input:
+        try:
+            percentage = float(input(question))
+            if 0 <= percentage <= 100:
+                is_valid_input = True
+            else:
+                print("Must be between 0 and 100")
+        except ValueError:
+            print("Invalid input")
+    return percentage
+
+
+def get_valid_variable_type(question, variable_type):
+    is_valid_input = False
+    while not is_valid_input:
+        try:
+            variable = variable_type(input(question))
+            if isinstance(variable, (int, float)) and variable <= 0:
+                print("Invalid must be more then 0")
+            elif variable:
+                is_valid_input = True
+            else:
+                print("Enter a value")
+        except ValueError:
+            print("Please invalid input value")
+    return variable
+
+
+def get_valid_date(question):
+    is_valid_input = False
+    while not is_valid_input:
+        try:
+            date = input(question)
+            if datetime.datetime.strptime(date, "%d/%m/%Y").date():
+                is_valid_input = True
+            else:
+                raise ValueError
+        except ValueError:
+            print("Please enter a valid date")
+    return date
 
 
 def get_default_if_string_empty(string, default):
