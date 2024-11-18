@@ -2,10 +2,12 @@ BoxLayout:
     orientation: "vertical"
     BoxLayout:
         TextInput:
+            size_hint_x: 0.8
             id: input_number
             font_size: 48
             multiline: False
         BoxLayout:
+            size_hint_x: 0.2
             orientation: "vertical"
             Button:
                 text: "Up"
@@ -15,3 +17,4 @@ BoxLayout:
         text: "Convert miles to km"
     Label:
         text: "Enter miles click convert button"
+        color: (1, 1, 0, 1)
