@@ -4,6 +4,8 @@ BoxLayout:
         TextInput:
             size_hint_x: 0.8
             id: input_number
+            text: app.input_text
+            on_text: app.handle_output_label_update()
             font_size: 48
             multiline: False
         BoxLayout:
@@ -11,10 +13,14 @@ BoxLayout:
             orientation: "vertical"
             Button:
                 text: "Up"
+                on_release: app.handle_increment_update(1)
             Button:
                 text: "Down"
-    Button:
-        text: "Convert miles to km"
+                on_release: app.handle_increment_update(-1)
+#    Button:
+#        text: "Convert miles to km"
+#        on_release: app.handle_output_label_update()
     Label:
-        text: "Enter miles click convert button"
+        id: output_label
+        text: app.message
         color: (1, 1, 0, 1)
